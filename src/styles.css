@@ -1,0 +1,156 @@
+/* General styles */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #555;
+}
+
+/* Header with title and file upload buttons */
+.generator {
+  display: flex;
+  align-items: center;
+  padding: 0 1vh;
+  justify-content: center;
+  background-color: #333;
+  color: white;
+  height: 100%;
+
+
+/* Custom button for file upload */
+form label {
+  background-color: #555;
+  color: white;
+  padding: 5.5vh 3vh;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 20px;
+  font-size:5.5vh;
+  font-weight: bold;
+}
+
+}
+
+.generator_bar {
+  display: flex;
+  padding:  2vh 1vh;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  color: white;
+  height: 5vh;
+}
+
+#root {
+  height: 100%;
+}
+
+.App {
+  height: 100%;
+}
+
+h1 {
+  margin: 0;
+  padding: 1vh;
+  font-size: 3vh;
+  height: 5vh;
+  color: #28a745;
+}
+
+.Home {
+  height: calc(100% - 7vh);
+}
+
+
+/* Form containing the upload buttons */
+form {
+  display: flex;
+  align-items: center;
+}
+
+form label {
+  margin-right: 10px;
+  color: white;
+}
+
+form input[type="file"] {
+  display: none;
+}
+
+/* Custom button for file upload */
+form label {
+  background-color: #555;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+  font-size: 2.5vh;
+  font-weight: bold;
+}
+
+form label[for="submit"] {
+  background-color: #28a745;
+}
+button#submit {
+  display: none;
+}
+
+/* SVG Viewer styling */
+.svg-viewer {
+  height: auto;
+  width: 75%;
+  overflow: auto;
+  border: 1px solid black;
+  margin: 1vh;
+  background-color: #DEDDDB;
+}
+
+/* Ensuring the SVG scales properly */
+.svg-viewer svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+
+.svg-editor-container {
+    display: flex;
+    width:25%;
+}
+
+.editor-aside {
+    flex-grow: 2;
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.editor-aside .section {
+    margin-bottom: 20px;
+}
+
+.editor-aside h3 {
+    margin-top: 0;
+    cursor: pointer;
+}
+
+.editor-aside .field {
+    margin-bottom: 10px;
+}
+
+.editor-aside label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.editor-aside input {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.svg-container {
+  display: flex;
+}
