@@ -62,6 +62,10 @@ h1 {
   height: calc(100% - 7vh);
 }
 
+.svg-zone {
+  height: calc(100% - 9vh);
+}
+
 
 /* Form containing the upload buttons */
 form {
@@ -100,7 +104,7 @@ button#submit {
 /* SVG Viewer styling */
 .svg-viewer {
   height: auto;
-  width: 75%;
+  width: calc(75% - 2vh);
   overflow: auto;
   border: 1px solid black;
   margin: 1vh;
@@ -124,18 +128,35 @@ button#submit {
     flex-grow: 2;
     width: 300px;
     background-color: #f4f4f4;
-    padding: 20px;
     overflow-y: auto;
+    height: 100%;
 }
 
 .editor-aside .section {
-    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 4px
+}
+
+
+.editor-aside .title {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between; /* Alinea los elementos a los extremos */
+  align-items: center; /* Alinea los elementos verticalmente en el centro */
+  cursor: pointer;
+  background-color: #5E5C64;
+  color: #F6F5F4;
 }
 
 .editor-aside h3 {
-    margin-top: 0;
-    cursor: pointer;
+  margin-top: 0;
 }
+
+/* La clase .expand no es necesaria para este caso específico, a menos que tenga un propósito adicional */
+.editor-aside h3.expand {
+  margin-top: 0;
+}
+
 
 .editor-aside .field {
     margin-bottom: 10px;
@@ -153,4 +174,22 @@ button#submit {
 }
 .svg-container {
   display: flex;
+  height: calc(100% - 6.75vh);
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  div {
+    cursor: pointer;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.75vh;
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 2.5vh;
+  }
 }

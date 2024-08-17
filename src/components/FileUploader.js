@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { generateSvg } from '../services/api';
+import { generateTable } from '../services/api';
 
 function FileUploader({ onSvgGenerated }) {
   const [jsonFile, setJsonFile] = useState(null);
   const [csvFile, setCsvFile] = useState(null);
   const [type, setType] = useState('generator');
+  const [csvChanged, setCsvChanged] = useState(false);
 
   const handleJsonChange = (e) => setJsonFile(e.target.files[0]);
-  const handleCsvChange = (e) => setCsvFile(e.target.files[0]);
+  const handleCsvChange = (e) => { setCsvFile(e.target.files[0]); setCsvChanged(true);
+  };
 
-  const handleSubmit = async (e) => {
+  const handleSubmitTable = async (e) => {
     e.preventDefault();
     if (!jsonFile || !csvFile) {
       alert('Please upload both JSON and CSV files.');
@@ -17,7 +19,8 @@ function FileUploader({ onSvgGenerated }) {
     }
 
     try {
-      const svg = await generateSvg(jsonFile, csvFile);
+      const svg = await generateTable(jsonFile, csvFile, csvChanged);
+      setCsvChanged(false);
       console.log('Uploaded SVG:', svg);
       onSvgGenerated(svg);
       if (!type.includes('bar')) setType(type+'_bar');
@@ -29,7 +32,7 @@ function FileUploader({ onSvgGenerated }) {
 
   return (
     <div className={type}>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitTable}>
         <label htmlFor="json-upload">Upload JSON</label>
         <input id="json-upload" type="file" accept=".json" onChange={handleJsonChange} />
         <label htmlFor="csv-upload">Upload CSV</label>

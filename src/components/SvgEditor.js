@@ -18,34 +18,106 @@ const SvgEditor = ({ svgConfig }) => {
 
             currentSection[sectionKeys[sectionKeys.length - 1]][field] = value;
 
-            if (field.toLowerCase().includes('color') || sectionPath.toLowerCase().includes('color')) {
-                updateDynamicStyles(sectionKeys, field, value);
-            }
+            updateDynamicStyles(sectionKeys, field, value);
 
             return newData;
         });
     };
 
-    const updateDynamicStyles = (className, field, value) => {
-        const section = className[className.length - 1];
-        setDynamicStyles(prevStyles => {
-            const existingRules = prevStyles[`.${section}`] || "";
+    function updateStyleRule(existingRules, property, value) {
+        let rules = existingRules || '';
+        const regex = new RegExp(`${property}:\\s?[^;]+;`, 'g');
+        if (rules.match(regex)) {
+            rules = rules.replace(regex, `${property}: ${value};`);
+        } else {
+            rules += ` ${property}: ${value};`;
+        }
+        return rules.trim();
+    }
 
-            let newRules;
-            if (className.length > 2 && className[1] === 'DecayModes') {
-                if (field === 'fill') {
-                    newRules = `${existingRules} fill: ${value}; .box { fill: ${value}; }`;
-                } else if (field === 'text') {
-                    newRules = `${existingRules} text { fill: ${value}; }`;
+    const updateDynamicStyles = (className, field, value) => {
+        if (className[0] === 'Table')
+            handleTableChange(className, field, value);
+        else if (className[0] === 'Element_Box')
+            handleElementBoxChange(className, field, value);
+        else if (className[0] === 'colors')
+            handleColorChange(className, field, value);
+
+        console.log(className, field, value);
+    };
+
+    const handleTableChange = (section, field, value) => {
+        section = section[section.length - 1]
+        setDynamicStyles(prevStyles => {
+            let newStyles = { ...prevStyles };
+            if (field.toLowerCase() === 'color')
+                newStyles[`#border`] = updateStyleRule(newStyles[`#border`], 'fill', value);
+            if (field.toLowerCase().includes('z color')) {
+                newStyles[`.z_index`] = updateStyleRule(newStyles[`.z_index`], 'fill', value);
+            }
+            if (field.toLowerCase().includes('n color')) {
+                newStyles[`.n_index`] = updateStyleRule(newStyles[`.n_index`], 'fill', value);
+            }
+            if (field.toLowerCase().includes('z font size')) {
+                newStyles[`.z_index`] = updateStyleRule(newStyles[`.z_index`], 'font-size', value);
+            }
+            if (field.toLowerCase().includes('n font size')) {
+                newStyles[`.n_index`] = updateStyleRule(newStyles[`.n_index`], 'font-size', value);
+            }
+            //TODO: offset
+            if (field.toLowerCase().includes('border_width')){
+                newStyles[`#border`] = updateStyleRule(newStyles[`#border`], 'stroke-width', value);
+            }
+            if (field.toLowerCase().includes('border_color')) {
+                newStyles[`#border`] = updateStyleRule(newStyles[`#border`], 'stroke', value);
+            }
+            return newStyles;
+        });
+    };
+
+    const handleElementBoxChange = (section, field, value) => {
+        const sectionActual = section[section.length - 1]
+
+        setDynamicStyles(prevStyles => {
+            let newStyles = { ...prevStyles };
+            // if (sectionActual === 'sizes') {
+            //     if (field.toLowerCase().includes('width')) {
+            //         newStyles[`.${section[section.length - 2]}`] = updateStyleRule(newStyles[`.${section[section.length - 2]}`], 'width', value);
+            //     }
+            //     if (field.toLowerCase().includes('height')) {
+            //         newStyles[`.${section[section.length - 2]}`] = updateStyleRule(newStyles[`.${section[section.length - 2]}`], 'height', value);
+            //     }
+            // } else {
+                if (field.toLowerCase().includes('border_width')){
+                    newStyles[`.border`] = updateStyleRule(newStyles[`.border`], 'stroke-width', value);
                 }
-            } else {
-                newRules = `${existingRules} ${field}: ${value};`;
+                if (field.toLowerCase().includes('border_color')) {
+                    newStyles[`.border`] = updateStyleRule(newStyles[`#border`], 'stroke', value);
+                }
+                if (field.toLowerCase().includes('name_font')) {
+                    newStyles[`.name`] = updateStyleRule(newStyles[`.name`], 'font-size', value);
+                }
+
+            // }
+            return newStyles;
+        });
+    };
+
+    const handleColorChange = (section, field, value) => {
+        section = section[section.length - 1]
+        setDynamicStyles(prevStyles => {
+            let newStyles = { ...prevStyles };
+
+            if (field.toLowerCase().includes('fill')) {
+                newStyles[`.${section} > rect:not(.border)`] = `fill: ${value};`;
+                newStyles[`polygon.${section}`] = `fill: ${value};`;
             }
 
-            return {
-                ...prevStyles,
-                [`.${section}`]: newRules
-            };
+            if (field.toLowerCase().includes('text')) {
+                newStyles[`.${section} > text`] = `fill: ${value};`;
+            }
+
+            return newStyles;
         });
     };
 
@@ -75,30 +147,55 @@ const SvgEditor = ({ svgConfig }) => {
     };
 
     const renderInputField = (sectionPath, key, value) => {
-        const inputType = key.toLowerCase().includes('color') || sectionPath.toLowerCase().includes('color') ? 'color' : (typeof value === 'number' ? 'number' : 'text');
+        let values = [];
 
-        return (
-            <div key={key} className="field">
-                <label>{key}</label>
-                <input
-                    type={inputType}
-                    value={value}
-                    onChange={(e) => handleInputChange(sectionPath, key, e.target.value)}
-                />
-            </div>
-        );
+        // Verifica si el valor es un string, si lo es, lo divide en valores separados por comas
+        if (typeof value === 'string') {
+            values = value.split(',').map(v => v.trim());
+        } else {
+            values = [value];
+        }
+
+        // Para cada valor, determinamos su tipo y renderizamos un input
+        return values.map((val, index) => {
+            const inputType = key.toLowerCase().includes('color') || sectionPath.toLowerCase().includes('color')
+                ? 'color'
+                : (typeof val === 'number' ? 'number' : 'text');
+
+            return (
+                <div key={`${key}-${index}`} className="field">
+                    <label>{index === 0 ? key : `${key} ${index + 1}`}</label>
+                    <input
+                        type={inputType}
+                        value={val}
+                        onChange={(e) => {
+                            const updatedValues = [...values];
+                            updatedValues[index] = e.target.value;
+                            const updatedValue = updatedValues.join(',').trim();
+                            handleInputChange(sectionPath, key, updatedValue);
+                        }}
+                    />
+                </div>
+            );
+        });
     };
 
     const renderSection = (sectionPath, sectionData) => {
-        const isCollapsed = collapsedSections[sectionPath];
+        const isExpanded = collapsedSections[sectionPath];
         const sectionKeyName = sectionPath.split(' - ').pop();
+        const sectionClass = (isExpanded ? 'section collapsed' : 'section');
 
         return (
-            <div key={sectionPath} className="section">
-                <h3 onClick={() => toggleSection(sectionPath)} style={{ cursor: 'pointer' }}>
-                    {sectionKeyName}
-                </h3>
-                {!isCollapsed && (
+            <div key={sectionPath} className={sectionClass}>
+                <div className='title' onClick={() => toggleSection(sectionPath)} style={{ cursor: 'pointer' }}>
+                    <h3 >
+                        {sectionKeyName}
+                    </h3>
+                    <h3 className="expand">
+                        {(!isExpanded ? ' +' : ' -')}
+                    </h3>
+                </div>
+                {isExpanded && (
                     <div className="section-fields">
                         {Object.entries(sectionData).map(([key, value]) =>
                             typeof value === 'object' && !Array.isArray(value) ? (
