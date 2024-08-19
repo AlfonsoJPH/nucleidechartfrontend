@@ -1,29 +1,60 @@
 import React, { useEffect, useRef, useState } from 'react';
 import svgPanZoom from 'svg-pan-zoom';
 import SvgEditor from '../components/SvgEditor';
-import { generateElementBox } from '../services/api';
+import { generateElementBox, generateTable } from '../services/api';
 
 function SvgViewer({ svgTable, svgConfig }) {
   const svgContainerRef = useRef(null);
+  const svgEditorRef = useRef(null); // Añadir la referencia para SvgEditor
   const [svgBox, setSvgBox] = useState('');
   const [svgContent, setSvgContent] = useState(svgTable);
-
+  const [data, setData] = useState(svgConfig);
 
   const getSvgBox = async () => {
-  if (svgBox === '') {
     try {
-      const box = await generateElementBox(svgConfig, '1H'); // Esperar a que la promesa se resuelva
-      console.log(box); // Ahora debería mostrar el SVG correctamente
-      setSvgBox(box);
-      setSvgContent(box); // También debes actualizar svgContent con el valor de box
+      if (svgBox === '') {
+        const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const box = await generateElementBox(jsonBlob, svgEditorRef.current.getSelectedElementBox());
+        setSvgBox(box);
+        setSvgContent(box); // Actualiza `svgContent` con el nuevo SVG
+      } else {
+        setSvgContent(svgBox);
+      }
     } catch (error) {
       console.error("Error generating SVG box:", error);
     }
-  } else {
-    setSvgContent(svgBox); // Si svgBox ya tiene un valor, lo usamos directamente
-  }
-};
+  };
 
+  const resetDynamicStyles = () => {
+    // Reset the dynamic styles in SvgEditor
+    if (svgEditorRef.current) {
+      svgEditorRef.current.resetStyles();
+    }
+  };
+
+  const reloadTableSvg = async () => {
+    try {
+      resetDynamicStyles(); // Reset the styles before reloading
+      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const updatedSvgTable = await generateTable(jsonBlob, '', false); // Usa el estado actual de `data`
+      svgTable = updatedSvgTable['svg']; // Actualiza la variable global
+      setSvgContent(updatedSvgTable['svg']);
+    } catch (error) {
+      console.error("Error reloading SVG Table:", error);
+    }
+  };
+
+  const reloadBoxSvg = async () => {
+    try {
+      resetDynamicStyles(); // Reset the styles before reloading
+      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const updatedSvgBox = await generateElementBox(jsonBlob, svgEditorRef.current.getSelectedElementBox());
+      setSvgBox(updatedSvgBox);
+      setSvgContent(updatedSvgBox); // Actualiza `svgContent` con el nuevo SVG
+    } catch (error) {
+      console.error("Error reloading SVG Box:", error);
+    }
+  };
 
   useEffect(() => {
     if (svgContainerRef.current) {
@@ -40,7 +71,7 @@ function SvgViewer({ svgTable, svgConfig }) {
           panZoomInstance.destroy(); // Desmontar la instancia al salir del componente
         };
       } else {
-        console.error("No se encontró un elemento <svg> en svgTable.");
+        console.error("No se encontró un elemento <svg> en svgContent.");
       }
     }
   }, [svgContent]);
@@ -48,16 +79,22 @@ function SvgViewer({ svgTable, svgConfig }) {
   return (
     <div className="svg-zone">
       <div className="menu">
-        <div onClick={() => setSvgContent(svgTable)} >Table</div>
-        <div onClick={() => getSvgBox()} >Element Box</div>
+        <div className="selector">
+          <div onClick={() => setSvgContent(svgTable)}>Table</div>
+          <div onClick={() => getSvgBox()}>Element Box</div>
+        </div>
+        <div className="reload">
+          <div onClick={reloadTableSvg}>Reload Table</div>
+          <div onClick={reloadBoxSvg}>Reload Box</div>
+        </div>
       </div>
       <div className="svg-container">
-        <div className="svg-viewer"
+        <div
+          className="svg-viewer"
           ref={svgContainerRef}
           dangerouslySetInnerHTML={{ __html: svgContent }}
-
         />
-        {svgContent && <SvgEditor svgConfig={svgConfig} />}
+        {svgContent && <SvgEditor ref={svgEditorRef} svgConfig={data} onUpdateData={setData} onResetStyles={resetDynamicStyles} />}
       </div>
     </div>
   );

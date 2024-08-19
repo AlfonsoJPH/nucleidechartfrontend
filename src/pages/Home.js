@@ -13,10 +13,21 @@ function Home() {
     console.log('Config:', config);
   };
 
+  const downloadSVG = () => {
+    const svgBlob = new Blob([svgTable], { type: 'image/svg+xml' });
+    const svgUrl = URL.createObjectURL(svgBlob);
+    const downloadLink = document.createElement('a');
+    downloadLink.href = svgUrl;
+    downloadLink.download = 'table.svg';
+    downloadLink.click();
+  }
+
   return (
     <div className="Home">
       <FileUploader onSvgGenerated={handleSvgGenerated} />
       {svgTable && <SvgViewer svgTable={svgTable} svgConfig={svgConfig}  />}
+      <button onClick={downloadSVG}>Download SVG</button>
+
     </div>
   );
 }

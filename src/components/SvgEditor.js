@@ -1,11 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 
-const SvgEditor = ({ svgConfig }) => {
+const SvgEditor = forwardRef(({ svgConfig, onUpdateData, onResetStyles }, ref) => {
     const [data, setData] = useState(svgConfig);
     const [collapsedSections, setCollapsedSections] = useState({});
     const [dynamicStyles, setDynamicStyles] = useState({});
+    const [selectedElementBox, setSelectedElementBox] = useState('3H');
 
-    const handleInputChange = (sectionPath, field, value) => {
+  useImperativeHandle(ref, () => ({
+    resetStyles() {
+      setDynamicStyles({});
+    },
+    getSelectedElementBox() {
+      return selectedElementBox;
+    },
+  }));
+
+    const handleInputChange = (sectionPath, key, value) => {
         const sectionKeys = sectionPath.split(' - ');
 
         setData(prevData => {
@@ -16,13 +26,33 @@ const SvgEditor = ({ svgConfig }) => {
                 currentSection = currentSection[sectionKeys[i]];
             }
 
-            currentSection[sectionKeys[sectionKeys.length - 1]][field] = value;
+            // Detectar y convertir el valor según su tipo original
+            const originalValue = currentSection[sectionKeys[sectionKeys.length - 1]][key];
+            let parsedValue;
 
-            updateDynamicStyles(sectionKeys, field, value);
+            if (Array.isArray(originalValue)) {
+                parsedValue = value.split(',').map(v => {
+                    const num = parseFloat(v.trim());
+                    return isNaN(num) ? v.trim() : num;
+                });
+            } else if (!isNaN(parseFloat(originalValue)) && isFinite(originalValue)) {
+                parsedValue = parseFloat(value);
+            } else {
+                parsedValue = value;
+            }
+
+            currentSection[sectionKeys[sectionKeys.length - 1]][key] = parsedValue;
+
+            updateDynamicStyles(sectionKeys, key, parsedValue);
 
             return newData;
         });
     };
+
+
+    useEffect(() => {
+      onUpdateData(data);  // Llama al callback cada vez que `data` cambie
+    }, [data, onUpdateData]);
 
     function updateStyleRule(existingRules, property, value) {
         let rules = existingRules || '';
@@ -149,14 +179,15 @@ const SvgEditor = ({ svgConfig }) => {
     const renderInputField = (sectionPath, key, value) => {
         let values = [];
 
-        // Verifica si el valor es un string, si lo es, lo divide en valores separados por comas
-        if (typeof value === 'string') {
+        // Verifica si el valor es un array o un string
+        if (Array.isArray(value)) {
+            values = value;
+        } else if (typeof value === 'string') {
             values = value.split(',').map(v => v.trim());
         } else {
             values = [value];
         }
 
-        // Para cada valor, determinamos su tipo y renderizamos un input
         return values.map((val, index) => {
             const inputType = key.toLowerCase().includes('color') || sectionPath.toLowerCase().includes('color')
                 ? 'color'
@@ -179,6 +210,7 @@ const SvgEditor = ({ svgConfig }) => {
             );
         });
     };
+
 
     const renderSection = (sectionPath, sectionData) => {
         const isExpanded = collapsedSections[sectionPath];
@@ -214,13 +246,23 @@ const SvgEditor = ({ svgConfig }) => {
         <div className="svg-editor-container">
             <style id="dynamic-styles"></style>
             <aside className="editor-aside">
+                <div className="element-box-selector">
+                    <label>Element Box</label>
+                    <input
+                        type='text'
+                        value={selectedElementBox}
+                        onChange={(e) => setSelectedElementBox(e.target.value)
+                        }
+                    />
+                </div>
+
                 {Object.entries(data).map(([sectionPath, sectionData]) =>
                     renderSection(sectionPath, sectionData)
                 )}
-                <button onClick={handleDownload}>Download JSON</button>
             </aside>
+                <button onClick={handleDownload}>Download JSON</button>
         </div>
     );
-};
+});
 
 export default SvgEditor;
