@@ -3,13 +3,16 @@ import svgPanZoom from 'svg-pan-zoom';
 import SvgEditor from '../components/SvgEditor';
 import { generateElementBox, generateTable } from '../services/api';
 
-function SvgViewer({ svgTable, svgConfig }) {
+function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable }) {
   const svgContainerRef = useRef(null);
   const svgEditorRef = useRef(null); // Añadir la referencia para SvgEditor
   const [svgBox, setSvgBox] = useState('');
   const [svgContent, setSvgContent] = useState(svgTable);
   const [data, setData] = useState(svgConfig);
 
+    useEffect(() => {
+      onUpdateSvgTable(svgTable);  // Llama al callback cada vez que `data` cambie
+    }, [svgTable, onUpdateSvgTable]);
   const getSvgBox = async () => {
     try {
       if (svgBox === '') {
@@ -37,7 +40,8 @@ function SvgViewer({ svgTable, svgConfig }) {
       resetDynamicStyles(); // Reset the styles before reloading
       const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const updatedSvgTable = await generateTable(jsonBlob, '', false); // Usa el estado actual de `data`
-      svgTable = updatedSvgTable['svg']; // Actualiza la variable global
+      onUpdateSvgTable(updatedSvgTable['svg']);  // Llama al callback cada vez que `data` cambie
+        // Actualiza la variable global
       setSvgContent(updatedSvgTable['svg']);
     } catch (error) {
       console.error("Error reloading SVG Table:", error);

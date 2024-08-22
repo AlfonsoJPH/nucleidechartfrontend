@@ -25,7 +25,7 @@ function Home() {
   return (
     <div className="Home">
       <FileUploader onSvgGenerated={handleSvgGenerated} />
-      {svgTable && <SvgViewer svgTable={svgTable} svgConfig={svgConfig}  />}
+      {svgTable && <SvgViewer svgTable={svgTable} svgConfig={svgConfig} onUpdateSvgTable={setSvgTable}  />}
       <button onClick={downloadSVG}>Download SVG</button>
 
     </div>

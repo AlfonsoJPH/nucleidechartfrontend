@@ -37,6 +37,8 @@ const SvgEditor = forwardRef(({ svgConfig, onUpdateData, onResetStyles }, ref) =
                 });
             } else if (!isNaN(parseFloat(originalValue)) && isFinite(originalValue)) {
                 parsedValue = parseFloat(value);
+            } else if (typeof originalValue === 'boolean') {
+                parsedValue = (value === 'true' || value === '1' || value === 't');
             } else {
                 parsedValue = value;
             }
