@@ -2,7 +2,7 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 
 // TODO Make environment variable
-const API_URL = 'https://nucleidechart.vaelico.es/API/';
+const API_URL = process.env.API_URL || 'https://nucleidechart.vaelico.es/API/';
 const sessionID = uuidv4();
 
 export const generateTable = async (jsonFile, csvFile, csvChanged) => {

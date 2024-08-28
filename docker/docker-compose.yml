@@ -4,5 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - API_URL=https://nucleidechart.vaelico.es/API/
     ports:
-      - "3001:3000"
+      - "3000:3000"
