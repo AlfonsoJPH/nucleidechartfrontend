@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ClipLoader } from 'react-spinners';
 import svgPanZoom from 'svg-pan-zoom';
 import SvgEditor from '../components/SvgEditor';
 import { generateElementBox, generateTable } from '../services/api';
@@ -9,6 +10,7 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
   const [svgBox, setSvgBox] = useState('');
   const [svgContent, setSvgContent] = useState(svgTable);
   const [data, setData] = useState(svgConfig);
+  const [loading, setLoading] = useState(false);
 
     useEffect(() => {
       onUpdateSvgTable(svgTable);  // Llama al callback cada vez que `data` cambie
@@ -21,6 +23,7 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
     try {
       if (svgBox === '') {
         const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        setLoading(true);
         const box = await generateElementBox(jsonBlob, svgEditorRef.current.getSelectedElementBox());
         setSvgBox(box);
         setSvgContent(box); // Actualiza `svgContent` con el nuevo SVG
@@ -29,6 +32,8 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
       }
     } catch (error) {
       console.error("Error generating SVG box:", error);
+    } finally {
+        setLoading(false);
     }
   };
 
@@ -43,12 +48,16 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
     try {
       resetDynamicStyles(); // Reset the styles before reloading
       const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        setLoading(true);
+
       const updatedSvgTable = await generateTable(jsonBlob, '', false); // Usa el estado actual de `data`
       onUpdateSvgTable(updatedSvgTable['svg']);  // Llama al callback cada vez que `data` cambie
         // Actualiza la variable global
       setSvgContent(updatedSvgTable['svg']);
     } catch (error) {
       console.error("Error reloading SVG Table:", error);
+    } finally {
+        setLoading(false);
     }
   };
 
@@ -56,11 +65,14 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
     try {
       resetDynamicStyles(); // Reset the styles before reloading
       const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        setLoading(true);
       const updatedSvgBox = await generateElementBox(jsonBlob, svgEditorRef.current.getSelectedElementBox());
       setSvgBox(updatedSvgBox);
       setSvgContent(updatedSvgBox); // Actualiza `svgContent` con el nuevo SVG
     } catch (error) {
       console.error("Error reloading SVG Box:", error);
+    } finally {
+        setLoading(false);
     }
   };
 
@@ -84,6 +96,13 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
     }
   }, [svgContent]);
 
+  if (loading) {
+    return (
+      <div className="spinner-container">
+      <ClipLoader size={150} color={"#2498db"} loading={loading} />
+      </div>
+    );
+  }
   return (
     <div className="svg-zone">
       <div className="menu">

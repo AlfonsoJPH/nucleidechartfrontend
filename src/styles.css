@@ -29,7 +29,6 @@ form label {
   padding: 5.5vh 3vh;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 20px;
   font-size:5.5vh;
   font-weight: bold;
 }
@@ -83,11 +82,14 @@ header {
 form {
   display: flex;
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1vh;
 }
 
 form label {
-  margin-right: 10px;
   color: white;
+  width: 38vh;
 }
 
 form input[type="file"] {
@@ -108,7 +110,6 @@ form label {
   padding: 2vh 1vh;
   border-radius: 0.4vh;
   cursor: pointer;
-  margin-right: 1vh;
   font-size: 2.5vh;
   font-weight: bold;
 }
@@ -252,4 +253,12 @@ button {
 
 .hidden {
   display: none;
+}
+
+
+.spinner-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: calc( 100% - 21vh );
 }

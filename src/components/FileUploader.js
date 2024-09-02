@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ClipLoader } from 'react-spinners';
 import { generateTable } from '../services/api';
 
 function FileUploader({ onSvgGenerated }) {
@@ -6,6 +7,7 @@ function FileUploader({ onSvgGenerated }) {
   const [csvFile, setCsvFile] = useState(null);
   const [type, setType] = useState('generator');
   const [csvChanged, setCsvChanged] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleJsonChange = (e) => setJsonFile(e.target.files[0]);
   const handleCsvChange = (e) => { setCsvFile(e.target.files[0]); setCsvChanged(true);
@@ -19,6 +21,7 @@ function FileUploader({ onSvgGenerated }) {
     }
 
     try {
+      setLoading(true);
       const svg = await generateTable(jsonFile, csvFile, csvChanged);
       setCsvChanged(false);
       console.log('Uploaded SVG:', svg);
@@ -27,9 +30,18 @@ function FileUploader({ onSvgGenerated }) {
     } catch (error) {
       console.error('Error generating SVG:', error);
       alert('Failed to generate SVG. Please try again.');
+    }finally {
+      setLoading(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="spinner-container">
+      <ClipLoader size={150} color={"#2498db"} loading={loading} />
+      </div>
+    );
+  }
   return (
     <div className={type}>
       <form onSubmit={handleSubmitTable}>
