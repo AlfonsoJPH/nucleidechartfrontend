@@ -7,6 +7,10 @@ body, html {
   background-color: #555;
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Header with title and file upload buttons */
 .generator {
   display: flex;
@@ -71,7 +75,7 @@ header {
 }
 
 .svg-zone {
-  height: calc(100% - 15vh);
+  height: calc(100% - 21vh);
 }
 
 
@@ -240,4 +244,12 @@ button {
   border: 1px solid #333;
   font-weight: bold;
   font-size: 2vh;
+}
+
+#download_svg {
+  height:5vh;
+}
+
+.hidden {
+  display: none;
 }

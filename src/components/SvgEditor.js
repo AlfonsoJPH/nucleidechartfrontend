@@ -262,7 +262,7 @@ const SvgEditor = forwardRef(({ svgConfig, onUpdateData, onResetStyles }, ref) =
                     renderSection(sectionPath, sectionData)
                 )}
             </aside>
-                <button onClick={handleDownload}>Download JSON</button>
+            <button onClick={handleDownload}>Download JSON</button>
         </div>
     );
 });

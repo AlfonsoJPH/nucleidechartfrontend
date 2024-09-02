@@ -3,7 +3,7 @@ import svgPanZoom from 'svg-pan-zoom';
 import SvgEditor from '../components/SvgEditor';
 import { generateElementBox, generateTable } from '../services/api';
 
-function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable }) {
+function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig }) {
   const svgContainerRef = useRef(null);
   const svgEditorRef = useRef(null); // Añadir la referencia para SvgEditor
   const [svgBox, setSvgBox] = useState('');
@@ -12,7 +12,11 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable }) {
 
     useEffect(() => {
       onUpdateSvgTable(svgTable);  // Llama al callback cada vez que `data` cambie
+      setSvgContent(svgTable);
     }, [svgTable, onUpdateSvgTable]);
+    useEffect(() => {
+      onUpdateSvgConfig(svgConfig);  // Llama al callback cada vez que `data` cambie
+    }, [data, onUpdateSvgConfig]);
   const getSvgBox = async () => {
     try {
       if (svgBox === '') {

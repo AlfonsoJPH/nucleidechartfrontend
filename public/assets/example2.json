@@ -1,0 +1,122 @@
+{
+    "Table": {
+        "color": "#FFFFFF",
+        "Z color": "darkgrey",
+        "N color": "darkgrey",
+        "Z font size": 20,
+        "N font size": 20,
+        "sizes": { "width": 7722, "height": 5460 },
+        "border_offset": [80, 80],
+        "border_width": 1,
+        "border_color": "black",
+        "base_h_offset": 140,
+        "base_v_offset": -40,
+        "number_of_divisions": 1,
+        "div_h_offsets": [120],
+        "div_v_offsets": [320],
+        "div_ranges": [[0, 118]]
+    },
+    "Element_Box": {
+        "sizes": {
+            "width": 40,
+            "height": 40
+        },
+        "stroke_width": 0,
+        "border_width": 1,
+        "max_number_of_nucleides": 3,
+        "symbol_and_weight": true,
+        "name": true,
+        "name_font": 7,
+        "name_offset": [20, 8],
+        "show_symbol": true,
+        "show_weight": true,
+        "symbol_font": 7,
+        "weight_font": 7,
+        "symbol_offset": [20, 0],
+        "weight_offset": [20, 20]
+    },
+    "Nucleide_Sect": {
+        "sizes": {
+            "width": 40,
+            "height": 30
+        },
+        "stroke_width": 0,
+        "border_width": 0.2,
+        "show_half_life": true,
+        "half_life_font": 4,
+        "half_life_offset": [0.5, 4],
+        "show_energy": true,
+        "energy_font": 4,
+        "energy_offset": [0, 40]
+    },
+    "Legend": {
+        "sizes": {
+            "width": 320,
+            "height": 480
+        },
+        "offset": [80, 80],
+        "stroke_width": 0,
+        "border_width": 1,
+        "border_color": "black",
+        "panel_background": "none",
+        "show_title": true,
+        "title_font": 18,
+        "title_font_color": "black",
+        "title_offset": [160, 40],
+        "show_decays_examples": true,
+        "show_decays_examples_text": true,
+        "decays_examples_font": 10,
+        "decays_examples_offset": [20, 60],
+        "decays_examples_font_offset": [60, 22.5],
+        "decays_examples_font_color": "black",
+        "show_nucleides_examples": true,
+        "show_nucleides_examples_text": true,
+        "nucleides_examples_font": 10,
+        "nucleides_examples_offset": [20, 460],
+        "nucleides_examples_font_offset": [60, 422.5],
+        "nucleides_examples_font_color": "black"
+    },
+    "colors": {
+        "Stroke": "black",
+        "Element_Box": "#FFFFFF",
+        "Nucleide_Sect": "#FFFFFF",
+        "DecayModes": {
+            "ALPHA": {
+                "fill": "#B3A60A",
+                "text": "black"
+            },
+            "BETA_MINUS": {
+                "fill": "#548088",
+                "text": "black"
+            },
+            "STABLE": {
+                "fill": "black",
+                "text": "white"
+            },
+            "PROTON": {
+                "fill": "#AD8516",
+                "text": "black"
+            },
+            "SF": {
+                "fill": "#295F2D",
+                "text": "black"
+            },
+            "BETA_PLUS": {
+                "fill": "#AF5E5B",
+                "text": "black"
+            },
+            "IT": {
+                "fill": "#C1BAB4",
+                "text": "black"
+            },
+            "ELECTRON_CAPTURE": {
+                "fill": "#646293",
+                "text": "black"
+            },
+            "NEUTRON": {
+                "fill": "#869898",
+                "text": "black"
+            }
+        }
+    }
+}

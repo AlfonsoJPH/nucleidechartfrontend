@@ -1,8 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
+import example_img_1 from '../img/example1.png'
+import example_img_2 from '../img/example2.png'
+import example_img_3 from '../img/example3.png'
+import example_img_4 from '../img/example4.png'
+import example_img_5 from '../img/example5.png'
+
+// import example_svg from '../assets/sample.json'
+// import example_csv from '../assets/sample.csv'
 
 function Home () {
+
   return (
     <div className="home-container">
       <header className="home-header">
@@ -23,14 +32,39 @@ function Home () {
         <h2>See some Examples</h2>
         <div className="examples-grid">
           <div className="example-item">
-            <img src="/path/to/example1.svg" alt="Example 1" />
-            <a href="/path/to/example1.svg" download>Download SVG</a>
-            <a href="/path/to/example1.json" download>Download JSON</a>
+            <img src={example_img_1} alt="Example 1" />
+            <div className="download-buttons">
+              <a href="assets/example1.svg" download>Download SVG Example</a>
+              <a href="assets/example1.json" download>Download JSON Example</a>
+            </div>
           </div>
           <div className="example-item">
-            <img src="/path/to/example2.svg" alt="Example 2" />
-            <a href="/path/to/example2.svg" download>Download SVG</a>
-            <a href="/path/to/example2.json" download>Download JSON</a>
+            <img src={example_img_2} alt="Example 2" />
+            <div className="download-buttons">
+              <a href="assets/example2.svg" download>Download SVG Example</a>
+              <a href="assets/example2.json" download>Download JSON Example</a>
+            </div>
+          </div>
+          <div className="example-item">
+            <img src={example_img_3} alt="Example 3" />
+            <div className="download-buttons">
+              <a href="assets/example3.svg" download>Download SVG Example</a>
+              <a href="assets/example3.json" download>Download JSON Example</a>
+            </div>
+          </div>
+          <div className="example-item">
+            <img src={example_img_4} alt="Example 4" />
+            <div className="download-buttons">
+              <a href="assets/example4.svg" download>Download SVG Example</a>
+              <a href="assets/example4.json" download>Download JSON Example</a>
+            </div>
+          </div>
+          <div className="example-item">
+            <img src={example_img_5} alt="Example 5" />
+            <div className="download-buttons">
+              <a href="assets/example5.svg" download>Download SVG Example</a>
+              <a href="assets/example5.json" download>Download JSON Example</a>
+            </div>
           </div>
           {/* Add more example items as needed */}
         </div>
@@ -39,8 +73,8 @@ function Home () {
       <section id="download-examples" className="section">
         <h2>Download Data Examples</h2>
         <div className="download-buttons">
-          <a href="/path/to/sample.csv" download>Download CSV Example</a>
-          <a href="/path/to/sample.json" download>Download JSON Example</a>
+          <a href="assets/sample.csv" download>Download CSV Example</a>
+          <a href="assets/sample.json" download>Download JSON Example</a>
         </div>
       </section>
 
