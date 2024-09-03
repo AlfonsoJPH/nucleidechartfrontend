@@ -85,11 +85,12 @@ form {
   justify-content: center;
   flex-wrap: wrap;
   gap: 1vh;
+  width: 100%;
 }
 
 form label {
   color: white;
-  width: 38vh;
+  width: 31.64%;
 }
 
 form input[type="file"] {
