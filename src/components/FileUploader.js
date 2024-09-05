@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import { ClipLoader } from 'react-spinners';
-import { generateTable } from '../services/api';
+import React, { useState } from "react";
+import { ClipLoader } from "react-spinners";
+import { generateTable } from "../services/api";
 
 function FileUploader({ onSvgGenerated }) {
   const [jsonFile, setJsonFile] = useState(null);
   const [csvFile, setCsvFile] = useState(null);
-  const [type, setType] = useState('generator');
+  const [type, setType] = useState("generator");
   const [csvChanged, setCsvChanged] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const handleJsonChange = (e) => setJsonFile(e.target.files[0]);
-  const handleCsvChange = (e) => { setCsvFile(e.target.files[0]); setCsvChanged(true);
+  const handleCsvChange = (e) => {
+    setCsvFile(e.target.files[0]);
+    setCsvChanged(true);
   };
 
   const handleSubmitTable = async (e) => {
     e.preventDefault();
     if (!jsonFile || !csvFile) {
-      alert('Please upload both JSON and CSV files.');
+      alert("Please upload both JSON and CSV files.");
       return;
     }
 
@@ -24,13 +26,13 @@ function FileUploader({ onSvgGenerated }) {
       setLoading(true);
       const svg = await generateTable(jsonFile, csvFile, csvChanged);
       setCsvChanged(false);
-      console.log('Uploaded SVG:', svg);
+      console.log("Uploaded SVG:", svg);
       onSvgGenerated(svg);
-      if (!type.includes('bar')) setType(type+'_bar');
+      if (!type.includes("bar")) setType(type + "_bar");
     } catch (error) {
-      console.error('Error generating SVG:', error);
-      alert('Failed to generate SVG. Please try again.');
-    }finally {
+      console.error("Error generating SVG:", error);
+      alert("Failed to generate SVG. Please try again.");
+    } finally {
       setLoading(false);
     }
   };
@@ -38,7 +40,7 @@ function FileUploader({ onSvgGenerated }) {
   if (loading) {
     return (
       <div className="spinner-container">
-      <ClipLoader size={150} color={"#2498db"} loading={loading} />
+        <ClipLoader size={150} color={"#2498db"} loading={loading} />
       </div>
     );
   }
@@ -46,11 +48,23 @@ function FileUploader({ onSvgGenerated }) {
     <div className={type}>
       <form onSubmit={handleSubmitTable}>
         <label htmlFor="json-upload">Upload JSON</label>
-        <input id="json-upload" type="file" accept=".json" onChange={handleJsonChange} />
+        <input
+          id="json-upload"
+          type="file"
+          accept=".json"
+          onChange={handleJsonChange}
+        />
         <label htmlFor="csv-upload">Upload CSV</label>
-        <input id="csv-upload" type="file" accept=".csv" onChange={handleCsvChange} />
+        <input
+          id="csv-upload"
+          type="file"
+          accept=".csv"
+          onChange={handleCsvChange}
+        />
         <label htmlFor="submit">Generate SVG</label>
-        <button id="submit" type="submit">Generate SVG</button>
+        <button id="submit" type="submit">
+          Generate SVG
+        </button>
       </form>
     </div>
   );

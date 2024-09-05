@@ -1,39 +1,49 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ClipLoader } from 'react-spinners';
-import svgPanZoom from 'svg-pan-zoom';
-import SvgEditor from '../components/SvgEditor';
-import { generateElementBox, generateTable } from '../services/api';
+import React, { useEffect, useRef, useState } from "react";
+import { ClipLoader } from "react-spinners";
+import svgPanZoom from "svg-pan-zoom";
+import SvgEditor from "../components/SvgEditor";
+import { generateElementBox, generateTable } from "../services/api";
 
-function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig }) {
+function SvgViewer({
+  svgTable,
+  svgConfig,
+  onUpdateSvgTable,
+  onUpdateSvgConfig,
+}) {
   const svgContainerRef = useRef(null);
-  const svgEditorRef = useRef(null); // Añadir la referencia para SvgEditor
-  const [svgBox, setSvgBox] = useState('');
+  const svgEditorRef = useRef(null);
+  const [svgBox, setSvgBox] = useState("");
   const [svgContent, setSvgContent] = useState(svgTable);
   const [data, setData] = useState(svgConfig);
   const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-      onUpdateSvgTable(svgTable);  // Llama al callback cada vez que `data` cambie
-      setSvgContent(svgTable);
-    }, [svgTable, onUpdateSvgTable]);
-    useEffect(() => {
-      onUpdateSvgConfig(svgConfig);  // Llama al callback cada vez que `data` cambie
-    }, [data, onUpdateSvgConfig]);
+  useEffect(() => {
+    onUpdateSvgTable(svgTable);
+    setSvgContent(svgTable);
+  }, [svgTable, onUpdateSvgTable]);
+  useEffect(() => {
+    onUpdateSvgConfig(svgConfig);
+  }, [data, onUpdateSvgConfig]);
   const getSvgBox = async () => {
     try {
-      if (svgBox === '') {
-        const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      if (svgBox === "") {
+        const jsonBlob = new Blob([JSON.stringify(data, null, 2)], {
+          type: "application/json",
+        });
         setLoading(true);
-        const box = await generateElementBox(jsonBlob, svgEditorRef.current.getSelectedElementBox());
+        const box = await generateElementBox(
+          jsonBlob,
+          svgEditorRef.current.getSelectedElementBox(),
+        );
         setSvgBox(box);
-        setSvgContent(box); // Actualiza `svgContent` con el nuevo SVG
+        setSvgContent(box);
       } else {
         setSvgContent(svgBox);
       }
     } catch (error) {
       console.error("Error generating SVG box:", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
@@ -47,38 +57,45 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
   const reloadTableSvg = async () => {
     try {
       resetDynamicStyles(); // Reset the styles before reloading
-      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        setLoading(true);
+      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json",
+      });
+      setLoading(true);
 
-      const updatedSvgTable = await generateTable(jsonBlob, '', false); // Usa el estado actual de `data`
-      onUpdateSvgTable(updatedSvgTable['svg']);  // Llama al callback cada vez que `data` cambie
-        // Actualiza la variable global
-      setSvgContent(updatedSvgTable['svg']);
+      const updatedSvgTable = await generateTable(jsonBlob, "", false); // Usa el estado actual de `data`
+      onUpdateSvgTable(updatedSvgTable["svg"]); // Llama al callback cada vez que `data` cambie
+      // Actualiza la variable global
+      setSvgContent(updatedSvgTable["svg"]);
     } catch (error) {
       console.error("Error reloading SVG Table:", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   const reloadBoxSvg = async () => {
     try {
       resetDynamicStyles(); // Reset the styles before reloading
-      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-        setLoading(true);
-      const updatedSvgBox = await generateElementBox(jsonBlob, svgEditorRef.current.getSelectedElementBox());
+      const jsonBlob = new Blob([JSON.stringify(data, null, 2)], {
+        type: "application/json",
+      });
+      setLoading(true);
+      const updatedSvgBox = await generateElementBox(
+        jsonBlob,
+        svgEditorRef.current.getSelectedElementBox(),
+      );
       setSvgBox(updatedSvgBox);
       setSvgContent(updatedSvgBox); // Actualiza `svgContent` con el nuevo SVG
     } catch (error) {
       console.error("Error reloading SVG Box:", error);
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     if (svgContainerRef.current) {
-      const svgElement = svgContainerRef.current.querySelector('svg');
+      const svgElement = svgContainerRef.current.querySelector("svg");
       if (svgElement) {
         const panZoomInstance = svgPanZoom(svgElement, {
           zoomEnabled: true,
@@ -99,7 +116,7 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
   if (loading) {
     return (
       <div className="spinner-container">
-      <ClipLoader size={150} color={"#2498db"} loading={loading} />
+        <ClipLoader size={150} color={"#2498db"} loading={loading} />
       </div>
     );
   }
@@ -121,7 +138,14 @@ function SvgViewer({ svgTable, svgConfig, onUpdateSvgTable, onUpdateSvgConfig })
           ref={svgContainerRef}
           dangerouslySetInnerHTML={{ __html: svgContent }}
         />
-        {svgContent && <SvgEditor ref={svgEditorRef} svgConfig={data} onUpdateData={setData} onResetStyles={resetDynamicStyles} />}
+        {svgContent && (
+          <SvgEditor
+            ref={svgEditorRef}
+            svgConfig={data}
+            onUpdateData={setData}
+            onResetStyles={resetDynamicStyles}
+          />
+        )}
       </div>
     </div>
   );

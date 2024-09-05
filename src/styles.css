@@ -1,5 +1,6 @@
 /* General styles */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -19,25 +20,27 @@ a {
   justify-content: center;
   background-color: #333;
   color: white;
-  height: calc(100% - 7vh) ;
+  height: calc(100% - 7vh);
 
-
-/* Custom button for file upload */
-form label {
-  background-color: #555;
-  color: white;
-  padding: 5.5vh 3vh;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size:5.5vh;
-  font-weight: bold;
+  /* Custom button for file upload */
+  form label {
+    background-color: #555;
+    color: white;
+    padding: 5.5vh 3vh;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 5.5vh;
+    font-weight: bold;
+  }
 }
 
+h3 {
+  margin: 0;
+  font-size: 3vh;
 }
-
 .generator_bar {
   display: flex;
-  padding:  2vh 1vh;
+  padding: 2vh 1vh;
   align-items: center;
   justify-content: space-between;
   background-color: #333;
@@ -54,16 +57,13 @@ form label {
 }
 
 header {
-    margin: 0;
-    height: 5vh;
-    padding: 1vh;
+  margin: 0;
+  height: 5vh;
+  padding: 1vh;
   h1 {
     margin: 0;
     font-size: 3vh;
     color: #28a745;
-  }
-  img {
-    display: none;
   }
 }
 
@@ -76,7 +76,6 @@ header {
 .svg-zone {
   height: calc(100% - 21vh);
 }
-
 
 /* Form containing the upload buttons */
 form {
@@ -129,7 +128,7 @@ button#submit {
   overflow: auto;
   border: 1px solid black;
   margin: 1vh;
-  background-color: #DEDDDB;
+  background-color: #dedddb;
 }
 
 /* Ensuring the SVG scales properly */
@@ -139,27 +138,25 @@ button#submit {
   display: block;
 }
 
-
 .svg-editor-container {
-    display: flex;
-    flex-direction: column;
-    width:25%;
+  display: flex;
+  flex-direction: column;
+  width: 25%;
 }
 
 .editor-aside {
-    flex-grow: 2;
-    width: 300px;
-    background-color: #f4f4f4;
-    overflow-y: auto;
-    height: 100%;
-    width: 100%;
+  flex-grow: 2;
+  width: 300px;
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
 }
 
 .editor-aside .section {
-    border: 1px solid #ccc;
-    padding: 4px
+  border: 1px solid #ccc;
+  padding: 4px;
 }
-
 
 .editor-aside .title {
   padding: 20px;
@@ -167,8 +164,8 @@ button#submit {
   justify-content: space-between; /* Alinea los elementos a los extremos */
   align-items: center; /* Alinea los elementos verticalmente en el centro */
   cursor: pointer;
-  background-color: #5E5C64;
-  color: #F6F5F4;
+  background-color: #5e5c64;
+  color: #f6f5f4;
 }
 
 .editor-aside h3 {
@@ -180,20 +177,19 @@ button#submit {
   margin-top: 0;
 }
 
-
 .editor-aside .field {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .editor-aside label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .editor-aside input {
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 5px;
+  box-sizing: border-box;
 }
 .svg-container {
   display: flex;
@@ -218,20 +214,20 @@ button#submit {
   }
 }
 .selector div {
-    padding: 1.75vh;
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    font-weight: bold;
-    font-size: 2.5vh;
-  }
+  padding: 1.75vh;
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  font-size: 2.5vh;
+}
 .reload div {
-    padding: 1vh;
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-    border: 1px solid #333;
-    font-weight: bold;
-    font-size: 2vh;
+  padding: 1vh;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  border: 1px solid #333;
+  font-weight: bold;
+  font-size: 2vh;
 }
 .element-box-selector {
   padding: 1vh;
@@ -249,17 +245,16 @@ button {
 }
 
 #download_svg {
-  height:5vh;
+  height: 5vh;
 }
 
 .hidden {
   display: none;
 }
 
-
 .spinner-container {
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: calc( 100% - 21vh );
+  height: calc(100% - 21vh);
 }

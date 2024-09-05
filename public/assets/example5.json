@@ -1,122 +1,203 @@
 {
-    "Table": {
-        "color": "#FFFFFF",
-        "Z color": "darkgrey",
-        "N color": "darkgrey",
-        "Z font size": 20,
-        "N font size": 20,
-        "sizes": { "width": 4395.6, "height": 3108 },
-        "border_offset": [80, 80],
-        "border_width": 1,
-        "border_color": "black",
-        "base_h_offset": 120,
-        "base_v_offset": -1040,
-        "number_of_divisions": 3,
-        "div_h_offsets": [ 120, 400, 120 ],
-        "div_v_offsets": [ 320, -200, -800 ],
-        "div_ranges": [ [0, 39], [40, 78], [79, 118] ]
+  "Table": {
+    "color": "#FFFFFF",
+    "Text": "black",
+    "Z color": "darkgrey",
+    "N color": "darkgrey",
+    "font1": 30,
+    "font2": 20,
+    "font3": 10,
+    "Z font size": 20,
+    "N font size": 20,
+    "sizes": {
+      "width": 4395.6,
+      "height": 3108
     },
-    "Element_Box": {
-        "sizes": {
-            "width": 40,
-            "height": 40
-        },
-        "stroke_width": 0,
-        "border_width": 1,
-        "max_number_of_nucleides": 3,
-        "symbol_and_weight": true,
-        "name": true,
-        "name_font": 7,
-        "name_offset": [20, 8],
-        "show_symbol": true,
-        "show_weight": true,
-        "symbol_font": 7,
-        "weight_font": 7,
-        "symbol_offset": [20, 0],
-        "weight_offset": [20, 20]
+    "border_offset": [
+      80,
+      80
+    ],
+    "border_width": 1,
+    "border_color": "black",
+    "base_h_offset": 120,
+    "base_v_offset": -1040,
+    "number_of_divisions": 3,
+    "div_h_offsets": [
+      120,
+      400,
+      120
+    ],
+    "div_v_offsets": [
+      320,
+      -200,
+      -800
+    ],
+    "div_ranges": [
+      [
+        0,
+        39
+      ],
+      [
+        40,
+        78
+      ],
+      [
+        79,
+        118
+      ]
+    ]
+  },
+  "Element_Box": {
+    "sizes": {
+      "width": 40,
+      "height": 40
     },
-    "Nucleide_Sect": {
-        "sizes": {
-            "width": 40,
-            "height": 30
-        },
-        "stroke_width": 0,
-        "border_width": 0.2,
-        "show_half_life": true,
-        "half_life_font": 4,
-        "half_life_offset": [0.5, 4],
-        "show_energy": true,
-        "energy_font": 4,
-        "energy_offset": [0, 40]
+    "stroke_width": 0,
+    "border_width": 1,
+    "max_number_of_nucleides": 3,
+    "symbol_and_weight": true,
+    "name": true,
+    "name_font": 7,
+    "name_offset": [
+      20,
+      8
+    ],
+    "show_symbol": true,
+    "show_weight": true,
+    "symbol_font": 7,
+    "weight_font": 7,
+    "symbol_offset": [
+      20,
+      0
+    ],
+    "weight_offset": [
+      20,
+      20
+    ]
+  },
+  "Nucleide_Sect": {
+    "sizes": {
+      "width": 40,
+      "height": 30
     },
-    "Legend": {
-        "sizes": {
-            "width": 320,
-            "height": 480
-        },
-        "offset": [80, 80],
-        "stroke_width": 0,
-        "border_width": 1,
-        "border_color": "black",
-        "panel_background": "none",
-        "show_title": true,
-        "title_font": 18,
-        "title_font_color": "black",
-        "title_offset": [320, 40],
-        "show_decays_examples": true,
-        "show_decays_examples_text": true,
-        "decays_examples_font": 10,
-        "decays_examples_offset": [20, 60],
-        "decays_examples_font_offset": [60, 22.5],
-        "decays_examples_font_color": "black",
-        "show_nucleides_examples": true,
-        "show_nucleides_examples_text": true,
-        "nucleides_examples_font": 10,
-        "nucleides_examples_offset": [20, 460],
-        "nucleides_examples_font_offset": [60, 422.5],
-        "nucleides_examples_font_color": "black"
+    "stroke_width": 0,
+    "border_width": 0.2,
+    "show_half_life": true,
+    "half_life_font": 4,
+    "half_life_offset": [
+      0.5,
+      4
+    ],
+    "show_energy": true,
+    "energy_font": 4,
+    "energy_offset": [
+      2,
+      28
+    ]
+  },
+  "Legend": {
+    "sizes": {
+      "width": 320,
+      "height": 480
     },
-    "colors": {
-        "Stroke": "black",
-        "Element_Box": "#FFFFFF",
-        "Nucleide_Sect": "#FFFFFF",
-        "DecayModes": {
-            "ALPHA": {
-                "fill": "#B3A60A",
-                "text": "black"
-            },
-            "BETA_MINUS": {
-                "fill": "#548088",
-                "text": "black"
-            },
-            "STABLE": {
-                "fill": "black",
-                "text": "white"
-            },
-            "PROTON": {
-                "fill": "#AD8516",
-                "text": "black"
-            },
-            "SF": {
-                "fill": "#295F2D",
-                "text": "black"
-            },
-            "BETA_PLUS": {
-                "fill": "#AF5E5B",
-                "text": "black"
-            },
-            "IT": {
-                "fill": "#C1BAB4",
-                "text": "black"
-            },
-            "ELECTRON_CAPTURE": {
-                "fill": "#646293",
-                "text": "black"
-            },
-            "NEUTRON": {
-                "fill": "#869898",
-                "text": "black"
-            }
-        }
+    "offset": [
+      3995,
+      80
+    ],
+    "stroke_width": 0,
+    "border_width": 1,
+    "border_color": "black",
+    "panel_background": "none",
+    "show_title": true,
+    "title_font": 18,
+    "title_font_color": "black",
+    "title_offset": [
+      160,
+      40
+    ],
+    "show_decays_examples": true,
+    "show_decays_examples_text": true,
+    "decays_examples_font": 10,
+    "decays_examples_offset": [
+      20,
+      60
+    ],
+    "decays_examples_width": 45,
+    "decays_examples_font_offset": [
+      60,
+      22.5
+    ],
+    "decays_examples_font_color": "black",
+    "show_nucleides_examples": true,
+    "show_nucleides_examples_text": true,
+    "nucleides_examples_font": 10,
+    "nucleides_examples_offset": [
+      20,
+      460
+    ],
+    "nucleides_examples_font_offset": [
+      60,
+      422.5
+    ],
+    "nucleides_examples_font_color": "black",
+    "description_offset": [
+      [
+        3400,
+        2500
+      ],
+      [
+        3300,
+        100
+      ]
+    ],
+    "description_font_size": 15,
+    "description_width": 80,
+    "description_space_between_jumps": "1em",
+    "description_space_between_lines": "1.5em",
+    "description_font_color": "black",
+    "description_font_family": "Arial"
+  },
+  "colors": {
+    "Stroke": "black",
+    "Element_Box": "#FFFFFF",
+    "Nucleide_Sect": "#FFFFFF",
+    "DecayModes": {
+      "ALPHA": {
+        "fill": "#fff300",
+        "text": "black"
+      },
+      "BETA_MINUS": {
+        "fill": "#5ac5bf",
+        "text": "black"
+      },
+      "STABLE": {
+        "fill": "#1c1c1e",
+        "text": "#f6f5f4"
+      },
+      "PROTON": {
+        "fill": "#fcb812",
+        "text": "black"
+      },
+      "SF": {
+        "fill": "#0cb049",
+        "text": "black"
+      },
+      "BETA_PLUS": {
+        "fill": "#f58581",
+        "text": "black"
+      },
+      "IT": {
+        "fill": "#ffffff",
+        "text": "black"
+      },
+      "ELECTRON_CAPTURE": {
+        "fill": "#7a87c3",
+        "text": "black"
+      },
+      "NEUTRON": {
+        "fill": "#a3d9da",
+        "text": "black"
+      }
     }
+  }
 }

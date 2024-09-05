@@ -1,6 +1,6 @@
-
 /* General Styles */
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -18,18 +18,42 @@ body, html {
 /* Header with Title and Background Image */
 .home-header {
   position: relative;
-  text-align: center;
+  display: flex;
+  justify-content: space-between; /* Coloca los elementos (imágenes y h1) a los lados */
+  align-items: center; /* Alinea verticalmente */
   color: white;
   height: 50vh;
-  background: #333;
+  background-image: url('../../public/assets/background.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 0 5vh; /* Añade algo de espacio a los lados del header */
 }
 
+.home-header img {
+  height: 25vh;
+  background-color: white;
+  border-radius: 85%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  top: 10vh;
+}
+.license {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 .home-header h1 {
   margin: 0;
-  padding-top: 15vh;
-  font-size: 8vh;
+  font-size: 14vh;
+  text-shadow:
+    -0.1vh -0.1vh 0 #000,
+     0.1vh -0.1vh 0 #000,
+    -0.1vh  0.1vh 0 #000,
+     0.1vh  0.1vh 0 #000;
+     color: #eee;
 }
-
 .header-bg {
   position: absolute;
   top: 0;
@@ -113,7 +137,6 @@ body, html {
   border: 1px solid #ddd;
   border-radius: 4px;
 }
-
 
 /* Download Buttons */
 .download-buttons {
