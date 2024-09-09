@@ -36,7 +36,6 @@ html {
   border-radius: 85%;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  top: 10vh;
 }
 .license {
     margin-top: 20px;
