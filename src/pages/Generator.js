@@ -11,9 +11,7 @@ function Generator() {
 
   const handleSvgGenerated = (svg, config) => {
     setSvgTable(svg["svg"]);
-    console.log("Generated SVG:", { svg });
     setSvgConfig(svg["config"]);
-    console.log("Config:", config);
   };
 
   const downloadSVG = () => {

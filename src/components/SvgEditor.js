@@ -87,7 +87,6 @@ const SvgEditor = forwardRef(({ svgConfig, onUpdateData }, ref) => {
     else if (className[0] === "colors")
       handleColorChange(className, field, value);
 
-    console.log(className, field, value);
   };
 
   const handleTableChange = (section, field, value) => {

@@ -26,7 +26,6 @@ function FileUploader({ onSvgGenerated }) {
       setLoading(true);
       const svg = await generateTable(jsonFile, csvFile, csvChanged);
       setCsvChanged(false);
-      console.log("Uploaded SVG:", svg);
       onSvgGenerated(svg);
       if (!type.includes("bar")) setType(type + "_bar");
     } catch (error) {

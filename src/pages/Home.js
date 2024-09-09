@@ -120,7 +120,7 @@ function Home() {
             <p><strong>Author:</strong> Alfonso Jesús Piñera Herrera</p>
             <p><strong>Tutor:</strong> Andrés María Roldán Aranda</p>
             <p><strong>Email:</strong> <a href="mailto:alfonsojph786@gmail.com">alfonsojph786@gmail.com</a></p>
-            <p><strong>Made in collaboration with:</strong> GranaSAT</p>
+            <p><strong>Made in collaboration with:</strong> <a href="https://granasat.space" target="_blank" rel="noopener noreferrer">GranaSAT</a></p>
             <p><strong>GranaSAT Location:</strong> Av. de Madrid, 28, Beiro, 18012 Granada</p>
             <p><strong>GranaSAT Email:</strong> <a href="mailto:granasat@ugr.es">granasat@ugr.es</a></p>
             <p><strong>Credits:</strong> University of Granada (UGR - ETSIIT)</p>
